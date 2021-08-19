@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  ffc-template-node:
+  ffc-sfi-agreement-api:
     build:
       context: .
       target: production
-    image: ffc-template-node
-    container_name: ffc-template-node
+    image: ffc-sfi-agreement-api
+    container_name: ffc-sfi-agreement-api
     environment:
-      APPINSIGHTS_CLOUDROLE: ffc-template-node-local
+      APPINSIGHTS_CLOUDROLE: ffc-sfi-agreement-api-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
