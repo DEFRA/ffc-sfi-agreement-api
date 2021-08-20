@@ -10,3 +10,16 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-sfi-agreement-api-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      POSTGRES_DB: ffc_sfi_agreement
+      POSTGRES_HOST: ${POSTGRES_HOST:-ffc-sfi-agreement-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_SCHEMA_PASSWORD:-ppp}
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA_NAME: ${POSTGRES_SCHEMA_NAME:-public}
+      POSTGRES_USERNAME: ${POSTGRES_SCHEMA_USERNAME:-postgres}
+  
+  ffc-sfi-agreement-postgres:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: ffc_sfi_agreement
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USERNAME: postgres
