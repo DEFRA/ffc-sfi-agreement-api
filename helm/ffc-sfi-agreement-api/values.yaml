@@ -39,12 +39,12 @@ container:
   port: 3009
 
 postgresService:
-  postgresDb: ffc_sfi_agreement
+  postgresDb: ffc_sfi_agreement_api
   # postgresExternalName is the external host name to which PostgreSQL
   # requests should be forwarded. If empty, PostgreSQL is assumed to be
   # within the cluster and accessible via postgresHost
   postgresExternalName:
-  postgresHost: ffc-sfi-agreement-postgres
+  postgresHost: ffc-sfi-agreement-api-postgres
   postgresPort: 5432
   postgresSchema: public
   postgresUser: postgres

@@ -24,10 +24,10 @@ const retry = {
 }
 
 const dbConfig = {
-  database: process.env.POSTGRES_DB || 'ffc_sfi_agreement',
+  database: process.env.POSTGRES_DB || 'ffc_sfi_agreement_api',
   dialect: 'postgres',
   hooks,
-  host: process.env.POSTGRES_HOST || 'ffc-sfi-agreement-postgres',
+  host: process.env.POSTGRES_HOST || 'ffc-sfi-agreement-api-postgres',
   password: process.env.POSTGRES_PASSWORD,
   port: process.env.POSTGRES_PORT || 5432,
   logging: process.env.POSTGRES_LOGGING || false,

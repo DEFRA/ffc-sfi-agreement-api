@@ -1,36 +1,41 @@
 const db = require('../data')
+const generateAgreementNumber = require('../agreement-number')
 
-async function getAgreements () {
+const getAgreements = async () => {
   return db.agreement.findAll()
 }
 
-async function getAgreement (agreementId) {
+const getAgreement = async (agreementNumber, sbi) => {
   return db.agreement.findOne({
     raw: true,
-    where: { agreementId }
+    where: { agreementNumber, sbi }
   })
 }
 
-async function saveAgreement (agreement, progressId) {
+const addAgreement = async (agreement, progressId) => {
+  const agreementNumber = agreement.agreementNumber ?? generateAgreementNumber()
   await db.sequelize.transaction(async (transaction) => {
-    const existingAgreement = await db.agreement.findOne({ where: { sbi: agreement.sbi } }, { transaction })
-    if (!existingAgreement) {
-      await db.agreement.create({ sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
-      console.info(`Saved agreement: ${agreement.sbi}`)
-    } else {
-      await db.agreement.update({ agreementData: agreement, progressId, statusId: agreement.statusId ?? 1 }, { where: { sbi: agreement.sbi }, transaction: transaction })
-      console.info(`Updated agreement: ${agreement.sbi}`)
-    }
+    await db.agreement.create({ agreementNumber, sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
+    console.info(`Saved agreement: ${agreementNumber}`)
+  })
+  return agreementNumber
+}
+
+const updateAgreement = async (agreement) => {
+  await db.sequelize.transaction(async (transaction) => {
+    await db.agreement.update({ agreementData: agreement, statusId: agreement.statusId ?? 1 }, { where: { agreementNumber: agreement.agreementNumber, sbi: agreement.sbi }, transaction: transaction })
+    console.info(`Updated agreement: ${agreement.sbi}`)
   })
 }
 
-async function deleteAgreement (agreement) {
-  await db.agreement.update({ statusId: 4 }, { where: { sbi: agreement.sbi } })
+const checkAgreementExists = async (agreement) => {
+  return db.agreement.findOne({ where: { sbi: agreement.sbi, agreementNumber: agreement.agreementNumber } })
 }
 
 module.exports = {
   getAgreements,
   getAgreement,
-  saveAgreement,
-  deleteAgreement
+  addAgreement,
+  updateAgreement,
+  checkAgreementExists
 }

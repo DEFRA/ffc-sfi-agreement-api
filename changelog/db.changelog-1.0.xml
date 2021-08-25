@@ -12,6 +12,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="agreement_pkey"/>
             </column>
             <column name="sbi" type="INTEGER"/>
+            <column name="agreementNumber" type="VARCHAR(25)"/>
             <column name="agreementData" type="JSON"/>
             <column name="createdAt" type="TIMESTAMP WITH TIME ZONE">
                 <constraints nullable="false"/>
