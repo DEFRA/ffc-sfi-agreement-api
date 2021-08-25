@@ -60,7 +60,6 @@ describe('agreement route', () => {
     }
 
     const result = await server.inject(options)
-    console.log('HEADERS', result.headers)
     expect(result.statusCode).toBe(201)
   })
 
