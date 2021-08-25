@@ -14,18 +14,14 @@ const getAgreement = async (agreementNumber, sbi) => {
 
 const addAgreement = async (agreement, progressId) => {
   const agreementNumber = agreement.agreementNumber ?? generateAgreementNumber()
-  await db.sequelize.transaction(async (transaction) => {
-    await db.agreement.create({ agreementNumber, sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
-    console.info(`Saved agreement: ${agreementNumber}`)
-  })
+  await db.agreement.create({ agreementNumber, sbi: agreement.sbi, agreementData: agreement, progressId })
+  console.info(`Saved agreement: ${agreementNumber}`)
   return agreementNumber
 }
 
 const updateAgreement = async (agreement) => {
-  await db.sequelize.transaction(async (transaction) => {
-    await db.agreement.update({ agreementData: agreement, statusId: agreement.statusId ?? 1 }, { where: { agreementNumber: agreement.agreementNumber, sbi: agreement.sbi }, transaction: transaction })
-    console.info(`Updated agreement: ${agreement.sbi}`)
-  })
+  await db.agreement.update({ agreementData: agreement, statusId: agreement.statusId ?? 1 }, { where: { agreementNumber: agreement.agreementNumber, sbi: agreement.sbi } })
+  console.info(`Updated agreement: ${agreement.sbi}`)
 }
 
 const checkAgreementExists = async (agreement) => {

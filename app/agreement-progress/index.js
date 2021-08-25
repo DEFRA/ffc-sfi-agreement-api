@@ -8,19 +8,14 @@ const getProgress = async (progressId) => {
 }
 
 const addProgress = async (progress) => {
-  let addedProgress
-  await db.sequelize.transaction(async (transaction) => {
-    addedProgress = await db.progress.create({ progress }, { transaction })
-    console.info(`Saved progress: ${addedProgress.progressId}`)
-  })
+  const addedProgress = await db.progress.create({ progress })
+  console.info(`Saved progress: ${addedProgress.progressId}`)
   return addedProgress.progressId
 }
 
 const updateProgress = async (progress, progressId) => {
-  await db.sequelize.transaction(async (transaction) => {
-    await db.progress.update({ progress }, { where: { progressId }, transaction: transaction })
-    console.info(`Updated progress: ${progressId}`)
-  })
+  await db.progress.update({ progress }, { where: { progressId } })
+  console.info(`Updated progress: ${progressId}`)
 }
 
 module.exports = {
