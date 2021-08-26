@@ -9,6 +9,10 @@ labels: {}
 appInsights:
   key:
 
+azureIdentity:
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID
+
 containerConfigMap:
   name: ffc-sfi-agreement-api-config-map
 
@@ -20,6 +24,10 @@ deployment:
   restartPolicy: Always
   priorityClassName: default
   replicas: 1
+  minReplicas: 2
+  maxReplicas: 6
+  cpuThreshold: 80
+  memoryThreshold: 80
   minReadySeconds: 0
 
 container:
@@ -29,6 +37,17 @@ container:
   limitMemory: 40Mi
   limitCpu: 40m
   port: 3009
+
+postgresService:
+  postgresDb: ffc_sfi_agreement_api
+  # postgresExternalName is the external host name to which PostgreSQL
+  # requests should be forwarded. If empty, PostgreSQL is assumed to be
+  # within the cluster and accessible via postgresHost
+  postgresExternalName:
+  postgresHost: ffc-sfi-agreement-api-postgres
+  postgresPort: 5432
+  postgresSchema: public
+  postgresUser: postgres
 
 livenessProbe:
   path: /healthz
@@ -43,3 +62,5 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
+
+aadPodIdentity: true
