@@ -48,7 +48,7 @@ module.exports = [{
       const progressId = await addProgress(request.payload.progress)
       const agreementNumber = await addAgreement(request.payload.saveAgreement, progressId)
 
-      return h.response( { progressId, agreementNumber } )
+      return h.response({ progressId, agreementNumber })
         .code(201)
         .header('Location', `/agreement/${agreementNumber}/${request.payload.sbi}`)
     }
