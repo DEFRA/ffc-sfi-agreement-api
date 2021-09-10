@@ -1,5 +1,6 @@
 const joi = require('joi')
 const { getAgreements, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
+const { addProgress } = require('../agreement-progress')
 
 module.exports = [{
   method: 'GET',
@@ -36,17 +37,18 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        agreementNumber: joi.string().required(),
-        sbi: joi.number().required(),
-        paymentAmount: joi.number()
+        saveAgreement: joi.object().required(),
+        progress: joi.object().required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const agreementNumber = await addAgreement(request.payload, 1)
-      return h.response('ok')
+      const progressId = await addProgress(request.payload.progress)
+      const agreementNumber = await addAgreement(request.payload.saveAgreement, progressId)
+
+      return h.response( { progressId, agreementNumber } )
         .code(201)
         .header('Location', `/agreement/${agreementNumber}/${request.payload.sbi}`)
     }
