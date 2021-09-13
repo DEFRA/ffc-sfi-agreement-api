@@ -6,6 +6,7 @@ describe('agreement route', () => {
   let server
   let progressData
   let sbi
+  let enrichedAgreement
   let agreementData
   let agreementNumber
 
@@ -20,9 +21,18 @@ describe('agreement route', () => {
     }
 
     progressData = {
-      eligibility: true,
-      businessDetails: true
+      progressId: 0,
+      progress: {
+        eligibility: true,
+        businessDetails: true
+      }
     }
+
+    enrichedAgreement = {
+      saveAgreement: agreementData,
+      progress: progressData
+    }
+
     await db.agreement.destroy({ truncate: { cascade: true } })
   })
 
@@ -41,25 +51,18 @@ describe('agreement route', () => {
     await db.sequelize.close()
   })
 
-  test('GET /agreements returns 404', async () => {
-    const options = {
-      method: 'GET',
-      url: '/agreements'
-    }
-
-    const result = await server.inject(options)
-    expect(result.statusCode).toBe(404)
-  })
-
   test('POST /agreement returns 201', async () => {
     await db.progress.create({ progress: progressData })
     const options = {
       method: 'POST',
       url: '/agreement',
-      payload: agreementData
+      payload: enrichedAgreement
     }
 
     const result = await server.inject(options)
+    const response = JSON.parse(result.payload)
+    agreementNumber = response.agreementNumber
+    enrichedAgreement.progress.progressId = response.progressId
     expect(result.statusCode).toBe(201)
   })
 
@@ -110,19 +113,15 @@ describe('agreement route', () => {
       method: 'GET',
       url: `/agreement/${agreementNumber}/${sbi}`
     }
-
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
   test('PUT /agreement returns 204', async () => {
-    agreementData.paymentAmount = 200
-
-    await db.progress.create({ progress: progressData })
     const options = {
       method: 'PUT',
       url: `/agreement/${agreementNumber}/${sbi}`,
-      payload: agreementData
+      payload: enrichedAgreement
     }
 
     const result = await server.inject(options)
@@ -130,7 +129,6 @@ describe('agreement route', () => {
   })
 
   test('PUT /agreement returns 400', async () => {
-    await db.progress.create({ progress: progressData })
     const options = {
       method: 'PUT',
       url: `/agreement/${agreementNumber}/${sbi}`,
@@ -142,14 +140,10 @@ describe('agreement route', () => {
   })
 
   test('PUT /agreement returns 404', async () => {
-    await db.progress.create({ progress: progressData })
     const options = {
       method: 'PUT',
       url: `/agreement/${agreementNumber}/987654321`,
-      payload: {
-        agreementNumber,
-        sbi: 987654321
-      }
+      payload: enrichedAgreement
     }
 
     const result = await server.inject(options)

@@ -19,7 +19,7 @@ module.exports = [{
     validate: {
       params: joi.object().keys({
         agreementNumber: joi.string().required(),
-        sbi: joi.string().required()
+        sbi: joi.number().required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()

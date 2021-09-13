@@ -39,7 +39,8 @@ describe('add Agreement', () => {
 
   test('should add 1 agreement', async () => {
     const progress = await db.progress.create({ progress: progressData })
-    await addAgreement(agreementData, progress.progressId)
+    agreementNumber = await addAgreement(agreementData, progress.progressId)
+    agreementData.agreementNumber = agreementNumber
     const agreement = await checkAgreementExists(agreementData)
     expect(agreement).toMatchObject(
       {
