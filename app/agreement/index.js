@@ -13,7 +13,7 @@ const getAgreement = async (agreementNumber, sbi) => {
 }
 
 const addAgreement = async (agreement, progressId) => {
-  const agreementNumber = agreement.agreementNumber ?? generateAgreementNumber()
+  const agreementNumber = generateAgreementNumber()
   await db.agreement.create({ agreementNumber, sbi: agreement.sbi, agreementData: agreement, progressId })
   console.info(`Saved agreement: ${agreementNumber}`)
   return agreementNumber
