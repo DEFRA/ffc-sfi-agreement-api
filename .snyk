@@ -5,13 +5,13 @@ ignore:
   SNYK-JS-ANSIREGEX-1583908:
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
         reason: None given
-        expires: '2021-10-13T13:02:56.584Z'
+        expires: '2021-10-17T11:22:28.665Z'
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
         reason: None given
-        expires: '2021-10-13T13:02:56.584Z'
+        expires: '2021-10-17T11:22:28.665Z'
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
         reason: None given
-        expires: '2021-10-13T13:02:56.584Z'
+        expires: '2021-10-17T11:22:28.666Z'
   SNYK-JS-AXIOS-1579269:
     - '@azure/identity > @azure/msal-node > axios':
         reason: None given
