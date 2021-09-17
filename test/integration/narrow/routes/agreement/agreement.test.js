@@ -52,7 +52,6 @@ describe('agreement route', () => {
   })
 
   test('POST /agreement returns 201', async () => {
-    await db.progress.create({ progress: progressData })
     const options = {
       method: 'POST',
       url: '/agreement',
@@ -67,7 +66,6 @@ describe('agreement route', () => {
   })
 
   test('POST /agreement returns 400', async () => {
-    await db.progress.create({ progress: progressData })
     const options = {
       method: 'POST',
       url: '/agreement',
