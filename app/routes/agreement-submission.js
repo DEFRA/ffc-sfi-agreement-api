@@ -16,7 +16,6 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      console.log(await getAgreements())
       const agreement = await getAgreement(request.payload.agreementNumber, request.payload.sbi)
       if (agreement) {
         await sendAgreementSubmitMessage(agreement.agreementData)
