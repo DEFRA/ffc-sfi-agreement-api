@@ -13,8 +13,9 @@ const addProgress = async (progress) => {
   return addedProgress.progressId
 }
 
-const updateProgress = async (progress, progressId) => {
-  await db.progress.update({ progress }, { where: { progressId } })
+const updateProgress = async (progress) => {
+  const progressId = progress.progressId
+  await db.progress.update({ progress: progress.progress }, { where: { progressId } })
   console.info(`Updated progress: ${progressId}`)
 }
 

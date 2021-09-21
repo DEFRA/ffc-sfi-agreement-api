@@ -1,5 +1,6 @@
 const joi = require('joi')
 const { getAgreements, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
+const { addProgress, updateProgress } = require('../agreement-progress')
 
 module.exports = [{
   method: 'GET',
@@ -7,7 +8,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const agreements = await getAgreements()
-      return agreements.length ? h.response(agreements).code(200) : h.response('Not data available').code(404)
+      return h.response(agreements).code(200)
     }
   }
 },
@@ -36,17 +37,17 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        agreementNumber: joi.string().required(),
-        sbi: joi.number().required(),
-        paymentAmount: joi.number()
+        saveAgreement: joi.object().required(),
+        progress: joi.object().required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const agreementNumber = await addAgreement(request.payload, 1)
-      return h.response('ok')
+      const progressId = await addProgress(request.payload.progress.progress)
+      const agreementNumber = await addAgreement(request.payload.saveAgreement, progressId)
+      return h.response(`{ "progressId": ${progressId}, "agreementNumber": "${agreementNumber}" }`)
         .code(201)
         .header('Location', `/agreement/${agreementNumber}/${request.payload.sbi}`)
     }
@@ -62,9 +63,8 @@ module.exports = [{
         sbi: joi.number().required()
       }),
       payload: joi.object({
-        agreementNumber: joi.string().required(),
-        sbi: joi.number().required(),
-        paymentAmount: joi.number()
+        saveAgreement: joi.object().required(),
+        progress: joi.object().required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
@@ -78,7 +78,8 @@ module.exports = [{
         })
 
       if (agreement) {
-        await updateAgreement(request.payload)
+        await updateAgreement(request.payload.saveAgreement)
+        await updateProgress(request.payload.progress)
         return h.response('ok').code(204)
       }
 
