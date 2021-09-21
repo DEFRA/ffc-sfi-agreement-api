@@ -1,5 +1,6 @@
 const joi = require('joi')
 const dbConfig = require('./db-config')
+const mqConfig = require('./mq-config')
 
 // Define config schema
 const schema = joi.object({
@@ -24,6 +25,8 @@ if (result.error) {
 
 // Use the joi validated value
 const value = result.value
+
+value.submitTopic = mqConfig.submitTopic
 
 value.isDev = value.env === 'development'
 value.isTest = value.env === 'test'

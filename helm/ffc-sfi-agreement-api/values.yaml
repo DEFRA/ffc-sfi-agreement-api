@@ -37,6 +37,7 @@ container:
   limitMemory: 120Mi
   limitCpu: 120m
   port: 3009
+  submitTopicAddress: ffc-sfi-agreement-submit
 
 postgresService:
   postgresDb: ffc_sfi_agreement_api
