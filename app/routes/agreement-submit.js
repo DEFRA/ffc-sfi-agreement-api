@@ -4,12 +4,12 @@ const { getAgreement } = require('../agreement')
 
 module.exports = [{
   method: 'POST',
-  path: '/agreement/submission',
+  path: '/agreement/submit',
   options: {
     validate: {
       payload: joi.object({
         agreementNumber: joi.string().required(),
-        sbi: joi.number().min(10 ** 8).max(10 ** 9 - 1).required()
+        sbi: joi.number().min(105000000).max(999999999).required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()

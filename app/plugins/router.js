@@ -3,7 +3,7 @@ const routes = [].concat(
   require('../routes/healthz'),
   require('../routes/agreement'),
   require('../routes/agreement-progress'),
-  require('../routes/agreement-submission')
+  require('../routes/agreement-submit')
 )
 
 module.exports = {
