@@ -1,9 +1,8 @@
-const createMessage = (body, type, messageId) => {
+const createMessage = (body, type) => {
   return {
     body,
     type,
-    source: 'ffc-sfi-agreement-api',
-    messageId
+    source: 'ffc-sfi-agreement-api'
   }
 }
 

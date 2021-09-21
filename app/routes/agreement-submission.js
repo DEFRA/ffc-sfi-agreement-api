@@ -1,6 +1,6 @@
 const joi = require('joi')
-const { v4: uuidv4 } = require('uuid')
 const { sendAgreementSubmitMessage } = require('../messaging')
+const { getAgreement, getAgreements } = require('../agreement')
 
 module.exports = [{
   method: 'POST',
@@ -9,19 +9,22 @@ module.exports = [{
     validate: {
       payload: joi.object({
         agreementNumber: joi.string().required(),
-        sbi: joi.string().required(),
-        agreement: joi.object().required()
+        sbi: joi.number().min(10 ** 8).max(10 ** 9 - 1).required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const messageId = uuidv4()
-      await sendAgreementSubmitMessage(request.payload, messageId)
+      console.log(await getAgreements())
+      const agreement = await getAgreement(request.payload.agreementNumber, request.payload.sbi)
+      if (agreement) {
+        await sendAgreementSubmitMessage(agreement.agreementData)
+        return h.response(`Agreement Submitted: ${agreement.agreementNumber}`)
+          .code(201)
+      }
 
-      return h.response('ok')
-        .code(201)
+      return h.response('Not found').code(404)
     }
   }
 }]
