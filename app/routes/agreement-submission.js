@@ -13,7 +13,6 @@ module.exports = [{
         agreement: joi.object().required()
       }),
       failAction: async (request, h, error) => {
-        console.log(error)
         return h.response('Bad request').code(400).takeover()
       }
     },
