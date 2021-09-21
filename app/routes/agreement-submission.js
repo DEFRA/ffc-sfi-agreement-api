@@ -1,6 +1,6 @@
 const joi = require('joi')
 const { sendAgreementSubmitMessage } = require('../messaging')
-const { getAgreement, getAgreements } = require('../agreement')
+const { getAgreement } = require('../agreement')
 
 module.exports = [{
   method: 'POST',
