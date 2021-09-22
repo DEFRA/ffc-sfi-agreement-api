@@ -1,19 +1,20 @@
 const buildSubmitMessage = (submitMessage) => {
+  const paymentAmount = submitMessage.selectedAmbitionLevel.level.paymentAmount
   return {
     agreementNumber: submitMessage.agreementNumber,
     sbi: submitMessage.selectedSbi.sbi,
     agreement: {
-      standards: buildStandards(submitMessage)
+      paymentAmount,
+      standards: buildStandards(submitMessage, paymentAmount)
     }
   }
 }
 
-const buildStandards = (submitMessage) => {
+const buildStandards = (submitMessage, paymentAmount) => {
   const selectedParcels = submitMessage.selectedParcels
   const selectedStandard = submitMessage.selectedStandard
   const ambitionLevel = submitMessage.selectedAmbitionLevel.name
-  const paymentAmount = submitMessage.selectedAmbitionLevel.level.paymentAmount
-  return {
+  return [{
     id: selectedStandard.code,
     ambitionLevel,
     paymentAmount,
@@ -21,7 +22,7 @@ const buildStandards = (submitMessage) => {
       id: parcel.id,
       area: parcel.area
     }))
-  }
+  }]
 }
 
 module.exports = buildSubmitMessage
