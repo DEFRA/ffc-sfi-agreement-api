@@ -63,7 +63,7 @@ describe('agreement submit route', () => {
     expect(result.statusCode).toBe(404)
   })
 
-  test('POST /agreement/submit returns 400 null agreementNumber', async () => {
+  test('POST /agreement/submit returns 400 when agreementNumber is missing', async () => {
     const options = {
       method: 'POST',
       url: '/agreement/submit',
@@ -74,7 +74,7 @@ describe('agreement submit route', () => {
     expect(result.statusCode).toBe(400)
   })
 
-  test('POST /agreement/submit returns 400 incorrect sbi number length', async () => {
+  test('POST /agreement/submit returns 400 when an incorrect sbi number length is supplied', async () => {
     const options = {
       method: 'POST',
       url: '/agreement/submit',
