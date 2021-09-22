@@ -1,8 +1,13 @@
 const buildSubmitMessage = (submitMessage) => {
   const paymentAmount = submitMessage.selectedAmbitionLevel.level.paymentAmount
+  const sbi = submitMessage.selectedSbi.sbi
+  const callerId = submitMessage.callerId
+  const organisationId = submitMessage.selectedSbi.organisationId
   return {
     agreementNumber: submitMessage.agreementNumber,
-    sbi: submitMessage.selectedSbi.sbi,
+    sbi,
+    callerId,
+    organisationId,
     agreement: {
       paymentAmount,
       standards: buildStandards(submitMessage, paymentAmount)
