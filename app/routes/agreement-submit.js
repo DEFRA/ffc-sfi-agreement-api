@@ -1,6 +1,7 @@
 const joi = require('joi')
 const { sendAgreementSubmitMessage } = require('../messaging')
 const { getAgreement } = require('../agreement')
+const buildSubmitMessage = require('../agreement-submit')
 
 module.exports = [{
   method: 'POST',
@@ -17,8 +18,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await getAgreement(request.payload.agreementNumber, request.payload.sbi)
-      if (agreement) {
-        await sendAgreementSubmitMessage(agreement.agreementData)
+      if (agreement?.agreementData?.agreement) {
+        const submitMessage = buildSubmitMessage(agreement.agreementData.agreement)
+        await sendAgreementSubmitMessage(submitMessage)
         return h.response(`Agreement Submitted: ${agreement.agreementNumber}`)
           .code(201)
       }
