@@ -8,9 +8,56 @@ describe('agreement submit route', () => {
 
   beforeAll(async () => {
     agreementData = {
+      callerId: '5037879',
       agreementNumber: '123456789',
       sbi: 123456789,
-      agreement: {}
+      agreement: {
+        selectedAmbitionLevel: {
+          name: 'Introductory',
+          level: {
+            rate: '26.00',
+            paymentAmount: '4383801.50'
+          }
+        },
+        selectedSbi: {
+          sbi: 106219996,
+          name: 'Mr S Baker',
+          organisationId: 5573787
+        },
+        selectedStandard: {
+          code: '110',
+          landCoverCodes: [
+            '110'
+          ],
+          name: 'Arable and horticultural soils',
+          parcels: [
+            {
+              id: 'TQ22526635',
+              area: 13.387652,
+              warnings: []
+            },
+            {
+              id: 'TQ21529203',
+              area: 3.473123,
+              warnings: []
+            }
+          ]
+        },
+        selectedParcels: [
+          {
+            id: 'TQ22526635',
+            value: 13.39,
+            area: 13.387652,
+            valid: true
+          },
+          {
+            id: 'TQ21529203',
+            value: 3.47,
+            area: 3.473123,
+            valid: true
+          }
+        ]
+      }
     }
 
     progressData = {

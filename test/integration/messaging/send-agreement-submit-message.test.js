@@ -21,9 +21,24 @@ describe('send agreement submit message', () => {
       agreementNumber,
       sbi,
       agreement: {
-        agreementNumber,
-        sbi,
-        paymentAmount: 100
+        paymentAmount: '4383801.50',
+        standards: [
+          {
+            id: '110',
+            ambitionLevel: 'Introductory',
+            paymentAmount: '4383801.50',
+            parcels: [
+              {
+                id: 'TQ22526635',
+                area: 13.387652
+              },
+              {
+                id: 'TQ21529203',
+                area: 3.473123
+              }
+            ]
+          }
+        ]
       }
     }
   })
