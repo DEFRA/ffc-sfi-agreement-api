@@ -6,12 +6,21 @@ ignore:
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
         reason: None given
         expires: '2021-10-17T11:22:28.665Z'
+      ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-10-21T11:24:32.538Z'
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
         reason: None given
         expires: '2021-10-17T11:22:28.665Z'
+      ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-10-21T11:24:32.538Z'
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
         reason: None given
         expires: '2021-10-17T11:22:28.666Z'
+      ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-10-21T11:24:32.538Z'
   SNYK-JS-AXIOS-1579269:
     - '@azure/identity > @azure/msal-node > axios':
         reason: None given
