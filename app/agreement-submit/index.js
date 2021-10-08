@@ -1,8 +1,8 @@
 const buildSubmitMessage = (submitMessage) => {
   const paymentAmount = submitMessage.selectedAmbitionLevel.level.paymentAmount
-  const sbi = submitMessage.selectedSbi.sbi
+  const sbi = submitMessage.selectedOrganisation.sbi
   const callerId = submitMessage.callerId
-  const organisationId = submitMessage.selectedSbi.organisationId
+  const organisationId = submitMessage.selectedOrganisation.organisationId
   return {
     agreementNumber: submitMessage.agreementNumber,
     sbi,

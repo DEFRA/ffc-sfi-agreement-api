@@ -19,7 +19,7 @@ describe('agreement submit route', () => {
             paymentAmount: '4383801.50'
           }
         },
-        selectedSbi: {
+        selectedOrganisation: {
           sbi: 106219996,
           name: 'Mr S Baker',
           organisationId: 5573787
