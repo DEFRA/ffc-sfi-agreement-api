@@ -5,6 +5,13 @@ const getAgreements = async () => {
   return db.agreement.findAll()
 }
 
+const getAgreementbySbi = async (sbi) => {
+  return db.agreement.findAll({
+    raw: true,
+    where: { sbi }
+  })
+}
+
 const getAgreement = async (agreementNumber, sbi) => {
   return db.agreement.findOne({
     raw: true,
@@ -30,6 +37,7 @@ const checkAgreementExists = async (agreement) => {
 
 module.exports = {
   getAgreements,
+  getAgreementbySbi,
   getAgreement,
   addAgreement,
   updateAgreement,

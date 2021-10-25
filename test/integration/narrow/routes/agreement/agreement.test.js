@@ -86,6 +86,26 @@ describe('agreement route', () => {
     expect(result.statusCode).toBe(200)
   })
 
+  test('GET /agreements by sbi 123456789 returns 200', async () => {
+    const options = {
+      method: 'GET',
+      url: '/agreements/123456789'
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(200)
+  })
+
+  test('GET /agreements by sbi 987654321 returns 400', async () => {
+    const options = {
+      method: 'GET',
+      url: '/agreements/987654321'
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(404)
+  })
+
   test('GET /agreement returns 400', async () => {
     const options = {
       method: 'GET',

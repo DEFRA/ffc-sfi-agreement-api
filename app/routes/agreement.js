@@ -1,5 +1,5 @@
 const joi = require('joi')
-const { getAgreements, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
+const { getAgreements, getAgreementbySbi, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
 const { addProgress, updateProgress } = require('../agreement-progress')
 
 module.exports = [{
@@ -9,6 +9,24 @@ module.exports = [{
     handler: async (request, h) => {
       const agreements = await getAgreements()
       return h.response(agreements).code(200)
+    }
+  }
+},
+{
+  method: 'GET',
+  path: '/agreements/{sbi}',
+  options: {
+    validate: {
+      params: joi.object().keys({
+        sbi: joi.number().required()
+      }),
+      failAction: async (request, h, error) => {
+        return h.response('Bad request').code(400).takeover()
+      }
+    },
+    handler: async (request, h) => {
+      const agreements = await getAgreementbySbi(request.params.sbi)
+      return agreements.length ? h.response(agreements).code(200) : h.response('No data available').code(404)
     }
   }
 },
@@ -27,7 +45,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await getAgreement(request.params.agreementNumber, request.params.sbi)
-      return agreement ? h.response(agreement).code(200) : h.response('Not data available').code(404)
+      return agreement ? h.response(agreement).code(200) : h.response('No data available').code(404)
     }
   }
 },
