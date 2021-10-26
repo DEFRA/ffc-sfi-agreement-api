@@ -25,19 +25,20 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const agreements = await getAgreementbySbi(request.params.sbi)
-      return agreements.length ? h.response(agreements).code(200) : h.response([]).code(404)
+      const sbi = request.params.sbi
+      const agreements = await getAgreementbySbi(sbi)
+      return h.response({ sbi, agreements }).code(200)
     }
   }
 },
 {
   method: 'GET',
-  path: '/agreement/{agreementNumber}/{sbi}',
+  path: '/agreement/{sbi}/{agreementNumber}',
   options: {
     validate: {
       params: joi.object().keys({
-        agreementNumber: joi.string().required(),
-        sbi: joi.number().required()
+        sbi: joi.number().required(),
+        agreementNumber: joi.string().required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
@@ -45,7 +46,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await getAgreement(request.params.agreementNumber, request.params.sbi)
-      return agreement ? h.response(agreement).code(200) : h.response({}).code(404)
+      return agreement ? h.response(agreement).code(200) : h.response(agreement).code(404)
     }
   }
 },
