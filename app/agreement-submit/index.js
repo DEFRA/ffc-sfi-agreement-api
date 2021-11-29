@@ -16,17 +16,13 @@ const buildSubmitMessage = (submitMessage) => {
 }
 
 const buildStandards = (submitMessage, paymentAmount) => {
-  const selectedParcels = submitMessage.selectedParcels
   const selectedStandard = submitMessage.selectedStandard
   const ambitionLevel = submitMessage.selectedAmbitionLevel.name
   return [{
-    id: selectedStandard.code,
+    code: selectedStandard.code,
     ambitionLevel,
     paymentAmount,
-    parcels: selectedParcels.map(parcel => ({
-      id: parcel.id,
-      area: parcel.area
-    }))
+    landCovers: submitMessage.selectedLandCovers
   }]
 }
 
