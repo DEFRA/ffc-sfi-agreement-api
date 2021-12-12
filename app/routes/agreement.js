@@ -54,9 +54,7 @@ module.exports = [{
   path: '/agreement',
   options: {
     validate: {
-      payload: joi.object({
-        agreement: joi.object().required()
-      }),
+      payload: joi.object(),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
@@ -78,9 +76,7 @@ module.exports = [{
         agreementNumber: joi.string().required(),
         sbi: joi.number().required()
       }),
-      payload: joi.object({
-        agreement: joi.object().required()
-      }),
+      payload: joi.object(),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
