@@ -19,7 +19,7 @@ module.exports = [{
       const agreement = await getAgreement(request.payload.agreementNumber, request.payload.sbi)
       if (agreement?.agreementData) {
         for (const funding in agreement.agreementData.action) {
-          if (!agreement.agreementData.action[funding].active) {
+          if (!agreement.agreementData.action[funding].active && funding !== 'paymentAmount') {
             delete agreement.agreementData.action[funding]
           }
         }
