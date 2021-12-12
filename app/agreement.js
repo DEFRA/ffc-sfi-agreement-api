@@ -31,8 +31,8 @@ const updateAgreement = async (agreement) => {
 }
 
 const checkAgreementExists = async (agreement) => {
-  const { agreementNumber, organisation } = agreement
-  return db.agreement.findOne({ where: { sbi: organisation.sbi, agreementNumber } })
+  const { agreementNumber, sbi } = agreement
+  return db.agreement.findOne({ where: { sbi, agreementNumber } })
 }
 
 module.exports = {
