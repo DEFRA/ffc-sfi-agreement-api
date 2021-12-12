@@ -60,10 +60,10 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      await addAgreement(request.payload.agreement)
+      await addAgreement(request.payload)
       return h.response('ok')
         .code(201)
-        .header('Location', `/agreement/${request.payload.agreement.agreementNumber}/${request.payload.sbi}`)
+        .header('Location', `/agreement/${request.payload.agreementNumber}/${request.payload.sbi}`)
     }
   }
 },
@@ -89,11 +89,14 @@ module.exports = [{
         })
 
       if (agreement) {
-        await updateAgreement(request.payload.agreement)
+        await updateAgreement(request.payload)
         return h.response('ok').code(204)
       }
 
-      return h.response('Not found').code(404)
+      await addAgreement(request.payload)
+      return h.response('ok')
+        .code(201)
+        .header('Location', `/agreement/${request.params.agreementNumber}/${request.params.sbi}`)
     }
   }
 }]

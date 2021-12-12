@@ -17,13 +17,13 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await getAgreement(request.payload.agreementNumber, request.payload.sbi)
-      if (agreement?.agreementData?.agreement) {
-        for (const funding in agreement.agreementData.agreement.action) {
-          if (!agreement.agreementData.agreement.action[funding].active) {
-            delete agreement.agreementData.agreement.action[funding]
+      if (agreement?.agreementData) {
+        for (const funding in agreement.agreementData.action) {
+          if (!agreement.agreementData.action[funding].active) {
+            delete agreement.agreementData.action[funding]
           }
         }
-        await sendAgreementSubmitMessage(agreement.agreementData.agreement)
+        await sendAgreementSubmitMessage(agreement.agreementData)
         return h.response(`Agreement Submitted: ${agreement.agreementNumber}`)
           .code(201)
       }
