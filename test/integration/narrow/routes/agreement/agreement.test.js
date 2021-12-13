@@ -1,10 +1,8 @@
-const generateAgreementNumber = require('../../../../../app/agreement-number')
 const db = require('../../../../../app/data')
 
 describe('agreement route', () => {
   let createServer
   let server
-  let progressData
   let sbi
   let enrichedAgreement
   let agreementData
@@ -12,26 +10,19 @@ describe('agreement route', () => {
 
   beforeAll(async () => {
     sbi = 123456789
-    agreementNumber = generateAgreementNumber()
+    agreementNumber = 'AG123456789'
 
     agreementData = {
       agreementNumber,
-      sbi,
-      paymentAmount: 100
-    }
-
-    progressData = {
-      progressId: 0,
-      progress: {
-        eligibility: true,
-        businessDetails: true
+      organisation: {
+        sbi
+      },
+      action: {
+        paymentAmount: 100
       }
     }
 
-    enrichedAgreement = {
-      saveAgreement: agreementData,
-      progress: progressData
-    }
+    enrichedAgreement = agreementData
 
     await db.agreement.destroy({ truncate: { cascade: true } })
   })
@@ -59,17 +50,13 @@ describe('agreement route', () => {
     }
 
     const result = await server.inject(options)
-    const response = JSON.parse(result.payload)
-    agreementNumber = response.agreementNumber
-    enrichedAgreement.progress.progressId = response.progressId
     expect(result.statusCode).toBe(201)
   })
 
   test('POST /agreement returns 400', async () => {
     const options = {
       method: 'POST',
-      url: '/agreement',
-      payload: {}
+      url: '/agreement'
     }
 
     const result = await server.inject(options)
@@ -139,22 +126,10 @@ describe('agreement route', () => {
   test('PUT /agreement returns 400', async () => {
     const options = {
       method: 'PUT',
-      url: `/agreement/${agreementNumber}/${sbi}`,
-      payload: {}
+      url: `/agreement/${agreementNumber}/${sbi}`
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(400)
-  })
-
-  test('PUT /agreement returns 404', async () => {
-    const options = {
-      method: 'PUT',
-      url: `/agreement/${agreementNumber}/987654321`,
-      payload: enrichedAgreement
-    }
-
-    const result = await server.inject(options)
-    expect(result.statusCode).toBe(404)
   })
 })
