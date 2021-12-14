@@ -26,9 +26,8 @@ describe('add Agreement', () => {
   })
 
   test('should add 1 agreement', async () => {
-    agreementNumber = await addAgreement(agreementData)
-    agreementData.agreementNumber = agreementNumber
-    const agreement = await checkAgreementExists(agreementData)
+    await addAgreement(agreementData)
+    const agreement = await checkAgreementExists({ agreementNumber, sbi: agreementData.organisation.sbi })
     expect(agreement).toMatchObject(
       {
         agreementData: {

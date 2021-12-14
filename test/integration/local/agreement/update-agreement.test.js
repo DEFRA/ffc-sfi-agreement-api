@@ -31,14 +31,10 @@ describe('update Agreement', () => {
 
     agreement.agreementData.action.paymentAmount = 200
 
-    await updateAgreement(agreement, 1)
+    await updateAgreement(agreement.agreementData)
 
-    expect(agreement).toMatchObject(
-      {
-        action: {
-          paymentAmount: 200
-        }
-      }
-    )
+    const updatedAgreement = await db.agreement.findOne({ raw: true, where: { agreementNumber, sbi: agreementData.organisation.sbi } })
+
+    expect(updatedAgreement.agreementData.action.paymentAmount).toBe(200)
   })
 })
