@@ -1,31 +1,20 @@
 const db = require('../../../../app/data')
-const generateAgreementNumber = require('../../../../app/agreement-number')
 const { updateAgreement } = require('../../../../app/agreement')
 
 let agreementData
-let progressData
 let agreementNumber
 
 describe('update Agreement', () => {
   beforeEach(async () => {
-    agreementNumber = generateAgreementNumber()
+    agreementNumber = 'AG123456789'
     agreementData = {
       agreementNumber,
-      sbi: 123456789,
-      paymentAmount: 100,
-      standards: [{
-        id: '110',
-        ambitionLevel: 'Introductory',
-        parcels: [{
-          id: 'SW72366798',
-          area: 1.4548
-        }]
-      }]
-    }
-
-    progressData = {
-      eligibility: true,
-      businessDetails: true
+      organisation: {
+        sbi: 123456789
+      },
+      action: {
+        paymentAmount: 100
+      }
     }
 
     await db.agreement.destroy({ truncate: { cascade: true } })
@@ -37,18 +26,15 @@ describe('update Agreement', () => {
   })
 
   test('should update 1 agreement', async () => {
-    const progress = await db.progress.create({ progress: progressData })
-    await db.agreement.create({ agreementNumber, sbi: agreementData.sbi, agreementData, progressId: progress.progressId })
-    const agreement = await db.agreement.findOne({ raw: true, where: { agreementNumber, sbi: agreementData.sbi } })
+    await db.agreement.create({ agreementNumber, sbi: agreementData.organisation.sbi, agreementData })
+    const agreement = await db.agreement.findOne({ raw: true, where: { agreementNumber, sbi: agreementData.organisation.sbi } })
 
-    agreement.paymentAmount = 200
+    agreement.agreementData.action.paymentAmount = 200
 
-    await updateAgreement(agreement, 1)
+    await updateAgreement(agreement.agreementData)
 
-    expect(agreement).toMatchObject(
-      {
-        paymentAmount: 200
-      }
-    )
+    const updatedAgreement = await db.agreement.findOne({ raw: true, where: { agreementNumber, sbi: agreementData.organisation.sbi } })
+
+    expect(updatedAgreement.agreementData.action.paymentAmount).toBe(200)
   })
 })

@@ -1,6 +1,5 @@
 const joi = require('joi')
-const { getAgreements, getAgreementbySbi, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
-const { addProgress, updateProgress } = require('../agreement-progress')
+const { getAgreements, getAgreementBySbi, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
 
 module.exports = [{
   method: 'GET',
@@ -26,7 +25,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const sbi = request.params.sbi
-      const agreements = await getAgreementbySbi(sbi)
+      const agreements = await getAgreementBySbi(sbi)
       return h.response({ sbi, agreements }).code(200)
     }
   }
@@ -55,20 +54,16 @@ module.exports = [{
   path: '/agreement',
   options: {
     validate: {
-      payload: joi.object({
-        saveAgreement: joi.object().required(),
-        progress: joi.object().required()
-      }),
+      payload: joi.object(),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const progressId = await addProgress(request.payload.progress.progress)
-      const agreementNumber = await addAgreement(request.payload.saveAgreement, progressId)
-      return h.response(`{ "progressId": ${progressId}, "agreementNumber": "${agreementNumber}" }`)
+      await addAgreement(request.payload)
+      return h.response('ok')
         .code(201)
-        .header('Location', `/agreement/${agreementNumber}/${request.payload.sbi}`)
+        .header('Location', `/agreement/${request.payload.agreementNumber}/${request.payload.sbi}`)
     }
   }
 },
@@ -81,10 +76,7 @@ module.exports = [{
         agreementNumber: joi.string().required(),
         sbi: joi.number().required()
       }),
-      payload: joi.object({
-        saveAgreement: joi.object().required(),
-        progress: joi.object().required()
-      }),
+      payload: joi.object(),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()
       }
@@ -97,12 +89,14 @@ module.exports = [{
         })
 
       if (agreement) {
-        await updateAgreement(request.payload.saveAgreement)
-        await updateProgress(request.payload.progress)
+        await updateAgreement(request.payload)
         return h.response('ok').code(204)
       }
 
-      return h.response('Not found').code(404)
+      await addAgreement(request.payload)
+      return h.response('ok')
+        .code(201)
+        .header('Location', `/agreement/${request.params.agreementNumber}/${request.params.sbi}`)
     }
   }
 }]
