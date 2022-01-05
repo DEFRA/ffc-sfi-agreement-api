@@ -9,6 +9,7 @@ describe('get Agreements', () => {
     agreementNumber = 'AG123456789'
     agreementData = {
       agreementNumber,
+      crn: '1234567890',
       organisation: {
         sbi: 123456789
       },

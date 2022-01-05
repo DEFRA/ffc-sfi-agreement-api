@@ -7,9 +7,9 @@ let agreementNumber
 describe('add Agreement', () => {
   beforeEach(async () => {
     agreementNumber = 'AG123456789'
-
     agreementData = {
       agreementNumber,
+      crn: '1234567890',
       organisation: {
         sbi: 123456789
       },
@@ -31,6 +31,7 @@ describe('add Agreement', () => {
     expect(agreement).toMatchObject(
       {
         agreementData: {
+          crn: '1234567890',
           organisation: {
             sbi: 123456789
           }
