@@ -3,13 +3,15 @@ const { getAgreementBySbi } = require('../../../../app/agreement')
 
 let agreementData
 let agreementNumber
+let crn
 
 describe('get Agreement by sbi', () => {
   beforeEach(async () => {
     agreementNumber = 'AG123456789'
+    crn = '1234567890'
     agreementData = {
       agreementNumber,
-      crn: '1234567890',
+      crn,
       organisation: {
         sbi: 123456789
       },
@@ -27,12 +29,12 @@ describe('get Agreement by sbi', () => {
   })
 
   test('should return 1 agreement', async () => {
-    await db.agreement.create({ agreementNumber, sbi: agreementData.organisation.sbi, agreementData })
+    await db.agreement.create({ agreementNumber, crn, sbi: agreementData.organisation.sbi, agreementData })
     const agreements = await getAgreementBySbi(agreementData.organisation.sbi)
     expect(agreements).toMatchObject(
       [{
         agreementNumber,
-        crn: '1234567890',
+        crn,
         sbi: agreementData.organisation.sbi,
         agreementData
       }]
