@@ -24,7 +24,7 @@ describe('agreement route', () => {
 
     enrichedAgreement = agreementData
 
-    await db.agreement.destroy({ truncate: { cascade: true } })
+    await db.agreement.destroy({ truncate: { cascade: false } })
   })
 
   beforeEach(async () => {

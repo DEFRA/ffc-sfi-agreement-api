@@ -19,14 +19,14 @@ const getAgreement = async (agreementNumber, sbi) => {
 }
 
 const addAgreement = async (agreement) => {
-  const { agreementNumber, organisation } = agreement
-  await db.agreement.create({ agreementNumber, sbi: organisation.sbi, agreementData: agreement })
+  const { agreementNumber, crn, organisation } = agreement
+  await db.agreement.create({ agreementNumber, crn, sbi: organisation.sbi, agreementData: agreement })
   console.info(`Saved agreement: ${agreementNumber}`)
 }
 
 const updateAgreement = async (agreement) => {
-  const { agreementNumber, organisation } = agreement
-  await db.agreement.update({ agreementData: agreement, statusId: agreement.statusId ?? 1 }, { where: { agreementNumber, sbi: organisation.sbi } })
+  const { agreementNumber, crn, organisation } = agreement
+  await db.agreement.update({ agreementData: agreement, crn, statusId: agreement.statusId ?? 1 }, { where: { agreementNumber, sbi: organisation.sbi } })
   console.info(`Updated agreement: ${agreementNumber}`)
 }
 
