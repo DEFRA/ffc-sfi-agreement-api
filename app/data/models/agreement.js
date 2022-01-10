@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     statusId: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
-    updatedAtFormated: {
+    updatedAtFormatted: {
       type: DataTypes.VIRTUAL,
       get () {
-        const formatedDate = this.updatedAt.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })
-        const formatedTime = this.updatedAt.toLocaleTimeString('en-GB')
-        return `${formatedDate} ${formatedTime}`
+        const formattedDate = this.updatedAt.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })
+        const formattedTime = this.updatedAt.toLocaleTimeString('en-GB')
+        return `${formattedDate} ${formattedTime}`
       }
     }
   },

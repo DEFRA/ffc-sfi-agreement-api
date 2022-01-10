@@ -5,7 +5,7 @@
   </changeSet>
   <changeSet author="Simon Dunn" id="2">
     <addColumn tableName="agreements">
-      <column afterColumn="createdAt" name="crn" type="VARCHAR(10)" />
+      <column afterColumn="agreementId" name="crn" type="VARCHAR(10)" />
     </addColumn>
   
   </changeSet>
