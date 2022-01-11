@@ -1,5 +1,5 @@
 const joi = require('joi')
-const { getAgreements, getAgreementBySbi, getAgreement, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
+const { getAgreements, getAgreementBySbi, getAgreementByNumberAndSbi, addAgreement, updateAgreement, checkAgreementExists } = require('../agreement')
 
 module.exports = [{
   method: 'GET',
@@ -44,7 +44,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const agreement = await getAgreement(request.params.agreementNumber, request.params.sbi)
+      const agreement = await getAgreementByNumberAndSbi(request.params.agreementNumber, request.params.sbi)
       return agreement ? h.response(agreement).code(200) : h.response(agreement).code(404)
     }
   }

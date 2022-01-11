@@ -6,23 +6,27 @@ ignore:
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
         reason: None given
         expires: '2021-10-17T11:22:28.665Z'
-      ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
-        reason: None given
-        expires: '2021-10-21T11:24:32.538Z'
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
         reason: None given
         expires: '2021-10-17T11:22:28.665Z'
-      ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
-        reason: None given
-        expires: '2021-10-21T11:24:32.538Z'
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
         reason: None given
         expires: '2021-10-17T11:22:28.666Z'
-      ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-10-21T11:24:32.538Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-10-21T11:24:32.538Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
         reason: None given
         expires: '2021-10-21T11:24:32.538Z'
   SNYK-JS-AXIOS-1579269:
     - '@azure/identity > @azure/msal-node > axios':
         reason: None given
         expires: '2021-10-13T13:02:56.584Z'
+  SNYK-JS-NODEFETCH-2342118:
+    - ffc-messaging > @azure/service-bus > @azure/core-http > node-fetch:
+        reason: None given
+        expires: '2022-02-17T11:10:50.701Z'
 patch: {}

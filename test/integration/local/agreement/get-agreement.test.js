@@ -1,5 +1,5 @@
 const db = require('../../../../app/data')
-const { getAgreement } = require('../../../../app/agreement')
+const { getAgreementByNumberAndSbi } = require('../../../../app/agreement')
 
 let agreementData
 let agreementNumber
@@ -30,7 +30,7 @@ describe('get Agreement', () => {
 
   test('should return 1 agreement', async () => {
     await db.agreement.create({ agreementNumber, crn, sbi: agreementData.organisation.sbi, agreementData })
-    const agreement = await getAgreement(agreementNumber, agreementData.organisation.sbi)
+    const agreement = await getAgreementByNumberAndSbi(agreementNumber, agreementData.organisation.sbi)
     expect(agreement).toMatchObject(
       {
         agreementNumber,
@@ -42,7 +42,7 @@ describe('get Agreement', () => {
   })
 
   test('should return no agreement', async () => {
-    const agreement = await getAgreement(agreementNumber, agreementData.organisation.sbi)
+    const agreement = await getAgreementByNumberAndSbi(agreementNumber, agreementData.organisation.sbi)
     expect(agreement).toBe(null)
   })
 })
