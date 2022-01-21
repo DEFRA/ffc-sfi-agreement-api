@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   })
   agreement.associate = function (models) {
-    agreement.hasOne(models.status, {
+    agreement.belongsTo(models.status, {
       foreignKey: 'statusId',
       as: 'status'
     })

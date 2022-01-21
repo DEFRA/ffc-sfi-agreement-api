@@ -1,26 +1,28 @@
 const db = require('./data')
 
 const getAgreements = async () => {
-  return db.agreement.findAll()
+  return db.agreement.findAll({
+    include: [{ model: db.status, as: 'status' }]
+  })
 }
 
 const getAgreementBySbi = async (sbi) => {
   return db.agreement.findAll({
-    raw: true,
+    include: [{ model: db.status, as: 'status' }],
     where: { sbi }
   })
 }
 
-const getAgreement = async (agreementNumber, sbi) => {
+const getAgreementByNumberAndSbi = async (agreementNumber, sbi) => {
   return db.agreement.findOne({
-    raw: true,
+    include: [{ model: db.status, as: 'status' }],
     where: { agreementNumber, sbi }
   })
 }
 
 const addAgreement = async (agreement) => {
   const { agreementNumber, crn, organisation } = agreement
-  await db.agreement.create({ agreementNumber, crn, sbi: organisation.sbi, agreementData: agreement })
+  await db.agreement.create({ agreementNumber, crn, statusId: agreement.statusId ?? 1, sbi: organisation.sbi, agreementData: agreement })
   console.info(`Saved agreement: ${agreementNumber}`)
 }
 
@@ -38,7 +40,7 @@ const checkAgreementExists = async (agreement) => {
 module.exports = {
   getAgreements,
   getAgreementBySbi,
-  getAgreement,
+  getAgreementByNumberAndSbi,
   addAgreement,
   updateAgreement,
   checkAgreementExists
