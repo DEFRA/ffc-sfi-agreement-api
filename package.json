@@ -29,7 +29,7 @@
     "joi": "^17.4.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.32.1"
   },
   "devDependencies": {
     "jest": "^27.0.6",
