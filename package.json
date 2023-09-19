@@ -22,7 +22,7 @@
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@azure/identity": "3.3.0",
-    "@hapi/hapi": "20.1.5",
+    "@hapi/hapi": "21.3.2",
     "applicationinsights": "1.8.10",
     "ffc-messaging": "2.7.0",
     "hapi-pino": "8.3.0",
