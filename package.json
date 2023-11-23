@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfi-agreement-api",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "FFC Agreement management service",
   "homepage": "https://github.com/DEFRA/ffc-sfi-agreement-api",
   "main": "app/index.js",
@@ -15,27 +15,29 @@
   },
   "author": "Defra",
   "contributors": [
-    "John Watson john.watson2@rpa.gov.uk",
+    "John Watson john.watson1@defra.gov.uk",
     "Steve Dickinson steve.dickinson@defra.gov.uk",
     "Praveen Reddy praveenr@kainos.com"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@azure/identity": "^1.5.1",
-    "@hapi/hapi": "^20.1.5",
-    "applicationinsights": "^1.8.10",
-    "ffc-messaging": "^2.3.1",
-    "hapi-pino": "^8.3.0",
-    "joi": "^17.4.0",
-    "pg": "^8.6.0",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^6.6.5"
+    "@azure/identity": "3.3.0",
+    "@hapi/hapi": "21.3.2",
+    "@hapi/hoek": "11.0.2",
+    "applicationinsights": "1.8.10",
+    "ffc-messaging": "2.7.0",
+    "hapi-pino": "8.3.0",
+    "joi": "17.4.0",
+    "log-timestamp": "0.3.0",
+    "pg": "8.6.0",
+    "pg-hstore": "2.3.3",
+    "sequelize": "6.33.0"
   },
   "devDependencies": {
-    "jest": "^27.0.6",
-    "jest-junit": "^13.0.0",
-    "nodemon": "^2.0.12",
-    "standard": "^16.0.3"
+    "jest": "29.7.0",
+    "jest-junit": "13.0.0",
+    "nodemon": "3.0.1",
+    "standard": "16.0.3"
   },
   "standard": {
     "globals": [
